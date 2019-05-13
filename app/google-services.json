@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "171388526308",
+    "firebase_url": "https://rtfasfpl.firebaseio.com",
+    "project_id": "rtfasfpl",
+    "storage_bucket": "rtfasfpl.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171388526308:android:aa66aef2497413c9",
+        "android_client_info": {
+          "package_name": "com.example.floodalert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171388526308-na7kmljntmqt7o4kg8erukoiu3cpld85.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.floodalert",
+            "certificate_hash": "e1e8736d7d8d2edd595a7424fbe395261d6d203d"
+          }
+        },
+        {
+          "client_id": "171388526308-7lvql7i1kr7s5bfnos1o69dh58kjlpr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKXkvikD_WW6bsEbJZHS7vQgTEoK_uwIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171388526308-7lvql7i1kr7s5bfnos1o69dh58kjlpr2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
