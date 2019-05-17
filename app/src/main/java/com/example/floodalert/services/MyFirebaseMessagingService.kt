@@ -62,15 +62,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .append(token)
         Log.d(TAG, builder.toString())
 
-        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_GLOBAL)
-            .addOnCompleteListener { task ->
-                var msg = "Succesful subscribed to " + TOPIC_GLOBAL
-                if (!task.isSuccessful) {
-                    msg = "Failed to subscribe to " + TOPIC_GLOBAL
-                }
-                Log.d(TAG, msg)
-                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-            }
+//        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_GLOBAL)
+//            .addOnCompleteListener { task ->
+//                var msg = "Succesful subscribed to " + TOPIC_GLOBAL
+//                if (!task.isSuccessful) {
+//                    msg = "Failed to subscribe to " + TOPIC_GLOBAL
+//                }
+//                Log.d(TAG, msg)
+//                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+//            }
     }
 
     fun handleNotification(RemoteMsgNotification: RemoteMessage.Notification){
@@ -80,6 +80,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         var resultIntent = Intent(applicationContext, ViewActivity::class.java)
         var notificationUtil = NotificationUtil(applicationContext)
+        resultIntent.putExtra("message",message)
         notificationUtil.displayNotification(notificationVO, resultIntent)
         notificationUtil.playNotificationSound()
     }
@@ -92,6 +93,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         var notificationVO = NotificationVO(title,message,action,actionDestination)
 
         var resultIntent = Intent(applicationContext, ViewActivity::class.java)
+        resultIntent.putExtra("message",message)
 
         var notificationUtil = NotificationUtil(applicationContext)
         notificationUtil.displayNotification(notificationVO, resultIntent)
