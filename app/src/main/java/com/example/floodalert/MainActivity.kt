@@ -1,19 +1,18 @@
 package com.example.floodalert
 
-import am.appwise.components.ni.ConnectionCallback
 import am.appwise.components.ni.NoInternetDialog
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import android.view.View
 import android.widget.*
-import com.example.floodalert.Utils.SharedPreference
-import com.example.floodalert.Utils.WeatherApi
+import com.example.floodalert.utils.SharedPreference
+import com.example.floodalert.utils.WeatherApi
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -66,6 +65,12 @@ class MainActivity : AppCompatActivity() {
 //        builder.setConnectionCallback({ hasActiveConnection: Boolean -> getResponse() }) // Set a Callback for network status
         builder.setCancelable(false) // Set cancelable status for dialog
         noInternetDialog = builder.build()
+
+        logoutBtn.setOnClickListener{
+            val intent = Intent(this@MainActivity,LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         if(verifyAvailableNetwork(this)){
             getResponse()

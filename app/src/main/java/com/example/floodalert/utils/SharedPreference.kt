@@ -1,4 +1,4 @@
-package com.example.floodalert.Utils
+package com.example.floodalert.utils
 
 import android.content.Context
 import android.content.SharedPreferences

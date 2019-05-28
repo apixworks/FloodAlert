@@ -1,4 +1,4 @@
-package com.example.floodalert.Utils;
+package com.example.floodalert.utils;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;

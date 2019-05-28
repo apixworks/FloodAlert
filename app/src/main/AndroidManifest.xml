@@ -14,8 +14,6 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:replace="android:theme">
-        <activity android:name=".RegistrationActivity">
-        </activity>
 
         <service
                 android:name=".services.MyFirebaseMessagingService"
@@ -38,6 +36,8 @@
         <activity
                 android:name=".LoginActivity"
                 android:theme="@style/FullTheme"/>
+        <activity android:name=".RegistrationActivity"
+                  android:theme="@style/FullTheme"/>
         <activity
                 android:name=".MainActivity"
                 android:theme="@style/FullTheme"/>

@@ -2,12 +2,9 @@ package com.example.floodalert.services
 
 import android.content.Intent
 import android.util.Log
-import android.widget.Toast
-import com.example.floodalert.MainActivity
-import com.example.floodalert.Utils.NotificationUtil
+import com.example.floodalert.utils.NotificationUtil
 import com.example.floodalert.ViewActivity
 import com.example.floodalert.models.NotificationVO
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 

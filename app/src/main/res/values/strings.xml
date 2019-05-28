@@ -4,7 +4,9 @@
     <string name="sign_up">
         <u>Signup</u>
     </string>
+    <string name="terms_and_condition">Terms and Condition</string>
     <string name="degree">
         <sub></sub>
     </string>
+    <string name="serverURL">http://192.168.43.109/flood_api/public/</string>
 </resources>

@@ -18,11 +18,12 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
     <EditText
-            android:id="@+id/username"
+            android:id="@+id/email"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
-            android:hint="Username"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
             android:drawableTint="#9e9e9e"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/account_circle"
@@ -36,10 +37,11 @@
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
             android:hint="Password"
+            android:inputType="textPassword"
             android:drawableTint="#9e9e9e"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/key"
-            app:layout_constraintTop_toBottomOf="@id/username"
+            app:layout_constraintTop_toBottomOf="@id/email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -80,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:text="Don't have an account?  "/>
         <TextView
+                android:id="@+id/sign_up_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent"

@@ -1,7 +1,6 @@
-package com.example.floodalert.Utils
+package com.example.floodalert.utils
 
 import android.content.Context
-import com.example.floodalert.MainActivity
 
 class NotificationUtils constructor(var mContext: Context) {
     val NOTIFICATION_ID = 200
