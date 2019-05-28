@@ -5,8 +5,8 @@
             android:drawable="@color/colorWhite"/>
 
     <item
-            android:left="20dp"
-            android:right="20dp">
+            android:left="50dp"
+            android:right="50dp">
         <bitmap
                 android:gravity="center"
                 android:src="@drawable/flood_icon"/>

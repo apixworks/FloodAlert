@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Flood Alert</string>
-    <string name="degree"><sub></sub></string>
+    <string name="no_connection_string">No Connection.\n Swipe Down to Reload</string>
+    <string name="sign_up">
+        <u>Signup</u>
+    </string>
+    <string name="degree">
+        <sub></sub>
+    </string>
 </resources>

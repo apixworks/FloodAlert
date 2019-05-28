@@ -1,14 +1,15 @@
 package com.example.floodalert
 
+import am.appwise.components.ni.ConnectionCallback
+import am.appwise.components.ni.NoInternetDialog
 import android.app.AlertDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
-import android.util.DisplayMetrics
+import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import com.example.floodalert.Utils.SharedPreference
@@ -16,7 +17,6 @@ import com.example.floodalert.Utils.WeatherApi
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import com.example.floodalert.models.WeatherResponse
 import com.google.gson.Gson
 import dmax.dialog.SpotsDialog
@@ -35,28 +35,41 @@ class MainActivity : AppCompatActivity() {
     val JSONURL = "http://api.openweathermap.org/data/2.5/"
 
     lateinit var dialog: AlertDialog
+    lateinit var noInternetDialog: NoInternetDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val lowerLayout = findViewById<ConstraintLayout>(R.id.lowerLayout)
+//        val lowerLayout = findViewById<ConstraintLayout>(R.id.lowerLayout)
         val temperature = findViewById<TextView>(R.id.temperature)
         val day = findViewById<TextView>(R.id.day)
         val date = findViewById<TextView>(R.id.date)
-        val condition = findViewById<TextView>(R.id.condition)
+//        val condition = findViewById<TextView>(R.id.condition)
         val notificationSwitch = findViewById<Switch>(R.id.notificationSwitch)
-        val weatherImage = findViewById<ImageView>(R.id.weatherImage)
+//        val weatherImage = findViewById<ImageView>(R.id.weatherImage)
+        val swipeLayout = findViewById<SwipeRefreshLayout>(R.id.swipeLayout)
         val sharedPreference = SharedPreference(this)
 
-        dialog = SpotsDialog.Builder()
-            .setContext(this@MainActivity)
-            .setCancelable(false)
-            .setTheme(R.style.CustomDialog)
-            .build()
-            .apply {
-                show()
-            }
+        val builder = NoInternetDialog.Builder(this)
+        builder.setBgGradientStart(resources.getColor(R.color.colorPrimary)) // Start color for background gradient
+        builder.setBgGradientCenter(resources.getColor(R.color.colorPrimary)) // Center color for background gradient
+        builder.setBgGradientEnd(resources.getColor(R.color.colorPrimary)) // End color for background gradient
+//        builder.setBgGradientOrientation() // Background gradient orientation (possible values see below)
+//        builder.setDialogRadius() // Set custom radius for background gradient
+//        builder.setTitleTypeface() // Set custom typeface for title text
+//        builder.setMessageTypeface() // Set custom typeface for message text
+        builder.setButtonColor(resources.getColor(R.color.colorAccent)) // Set custom color for dialog buttons
+        builder.setButtonTextColor(resources.getColor(R.color.colorWhite)) // Set custom text color for dialog buttons
+        builder.setButtonIconsColor(resources.getColor(R.color.colorWhite)) // Set custom color for icons of dialog buttons
+//        builder.setWifiLoaderColor() // Set custom color for wifi loader
+//        builder.setConnectionCallback({ hasActiveConnection: Boolean -> getResponse() }) // Set a Callback for network status
+        builder.setCancelable(false) // Set cancelable status for dialog
+        noInternetDialog = builder.build()
+
+        if(verifyAvailableNetwork(this)){
+            getResponse()
+        }
 
         if (sharedPreference.getValueInt("notificationState") == 0) {
             notificationSwitch.setChecked(false)
@@ -95,7 +108,10 @@ class MainActivity : AppCompatActivity() {
                     }
         }
 
-        getResponse()
+        swipeLayout.setOnRefreshListener{
+            Log.d("MainActivity","Imefika")
+            getResponse()
+        }
 
 //        notificationSwitch.setOnClickListener (object : View.OnClickListener {
 //            override fun onClick(v: View?) {
@@ -122,7 +138,23 @@ class MainActivity : AppCompatActivity() {
 //        })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        noInternetDialog.onDestroy()
+    }
+
     private fun getResponse() {
+        dialog = SpotsDialog.Builder()
+            .setContext(this@MainActivity)
+            .setCancelable(false)
+            .setTheme(R.style.CustomDialog)
+            .build()
+            .apply {
+                show()
+            }
+        lowerLayout.visibility = View.INVISIBLE
+        weatherImage.visibility = View.INVISIBLE
+        condition.visibility = View.INVISIBLE
 
         val gson = Gson()
 
@@ -160,23 +192,29 @@ class MainActivity : AppCompatActivity() {
                         }
                         temperature.setText(kelvinToCelsius(weatherResponse.main!!.temp))
 
+                        connectionLayout.visibility  = View.INVISIBLE
                         lowerLayout.visibility = View.VISIBLE
                         weatherImage.visibility = View.VISIBLE
                         condition.visibility = View.VISIBLE
 
                         dialog.dismiss()
+                        swipeLayout.isRefreshing = false
 
                     } else {
                         Log.i(
                             "onEmptyResponse",
                             "Returned empty response")
+                        connectionLayout.visibility  = View.VISIBLE
                         dialog.dismiss()
+                        swipeLayout.isRefreshing = false
                     }
                 }
             }
 
             override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
+                connectionLayout.visibility  = View.VISIBLE
                 dialog.dismiss()
+                swipeLayout.isRefreshing = false
             }
         })
     }
